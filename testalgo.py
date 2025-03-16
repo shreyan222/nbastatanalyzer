@@ -4,7 +4,6 @@ import PPnbapicks
 import time
 import dataFinder
 import csv
-from fanduel import filtered_data
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
