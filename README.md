@@ -78,6 +78,22 @@ Run the main analysis:
 
 python testalgo.py
 
+Sample Results:
+
+Final Standard Data Table (Sorted by Sorting Score):
+
+Name                Position  Team  AgainstTeam  Stat           Line  Odds      H2HArray                  L5Array               Temp  Size  H2HAvg  L5Avg  Diff    Rel Diff  Percent  Sample Size  Score  GameId                             
+Mikal Bridges       SG        NYK   MIA          Pts+Rebs+Asts  25.5  standard  [33, 35, 33, 41, 26, 17]  [12, 31, 26, 41, 28]  5     6     30.833  27.6   5.333   0.175     20.915   6            1.693  NBA_game_DSwyh9T6CVpOJ3McUhI0wF8d  
+Mikal Bridges       SG        NYK   MIA          Pts+Asts       21.5  standard  [26, 28, 27, 32, 23, 13]  [9, 27, 23, 37, 22]   5     6     24.833  23.6   3.333   0.126     15.504   6            1.684  NBA_game_DSwyh9T6CVpOJ3McUhI0wF8d  
+Mikal Bridges       SG        NYK   MIA          Points         17.5  standard  [21, 23, 24, 26, 17, 5]   [6, 22, 15, 33, 19]   4.5   6     19.333  19.0   1.833   0.081     10.476   6            1.617  NBA_game_DSwyh9T6CVpOJ3McUhI0wF8d  
+Luka Doncic         PG        LAL   SAS          Rebounds       9.5   standard  [13, 12, 9, 10, 10, 6]    [7, 8, 12, 11, 11]    4.5   6     10.0    9.8    0.5     0.034     5.263    6            1.605  NBA_game_oeCCiNtypxK0snbnRGEdXxZ9  
+Chris Paul          PG        SAS   LAL          Assists        6.5   standard  [4, 9, 11, 6, 10]         [7, 9, 9, 3, 6]       4.5   5     8.0     6.8    1.5     0.13      23.077   5            1.502  NBA_game_oeCCiNtypxK0snbnRGEdXxZ9  
+
+
+For a more detailed view, check the results folder where output_data.csv is saved.
+
+
+
 Notes
 
 The data is sourced from APIs and websites like PrizePicks and StatMuse.
@@ -91,3 +107,5 @@ Output is stored in output_data.csv for further use.
 Currently in progress...
 
 Plans to add additional advanced stats such as Defensive rankings & trades/injuries.
+
+
