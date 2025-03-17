@@ -13,26 +13,9 @@ start_time = time.time()
 df = pd.read_csv('Testing.csv')
 output_file = "output_data.csv"
 
-for category, data in filtered_data.items():
-    print(f"{category}:")
-    for row in data:
-        print(row)
-    print()
 
 
-def load_props_from_file(filename='nba_props.pkl'):
-    try:
-        with open(filename, 'rb') as f:
-            props = pickle.load(f)
-            return props
-    except FileNotFoundError:
-        print(f"{filename} not found.")
-        return []
 
-
-props = load_props_from_file()
-for prop in props:
-    print(prop)
 norm1 = PPnbapicks.RemoveSearch(PPnbapicks.filter_rows_by_league_id(df, 7), "Combo")
 norm2 = PPnbapicks.RemoveSearch(norm1, "Dunks")
 norm = PPnbapicks.RemoveSearch(norm2, "Fantasy Score")
@@ -176,10 +159,6 @@ def combinetoverPropraternum2(num, timeframe):
                 h2hstatarr = dataFinder.specific_stat_vs_opp_games_arr(h2harr, stat[i])
 
             h2hsize = len(h2hstatarr)
-            if timeframe == "since-2024-2025-season":
-                props[i].add_performance_data(h2hstatarr, "H2H1Y")
-            elif timeframe == "since-2023-2024-season":
-                props[i].add_performance_data(h2hstatarr, "H2H2Y")
 
             L5temp = 0
             h2htemp = 0
@@ -352,9 +331,6 @@ print(teamdf)
 print(norm)
 combinetoverPropraternum2(0, "since-2023-2024-season")
 combinetoverPropraternum2(0, "since-2024-2025-season")
-with open('nba_props.pkl', 'wb') as f:
-    pickle.dump(props, f)
-props = load_props_from_file()
 
 end_time = time.time()
 
