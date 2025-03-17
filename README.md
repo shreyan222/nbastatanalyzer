@@ -90,7 +90,7 @@ Luka Doncic         PG        LAL   SAS          Rebounds       9.5   standard  
 Chris Paul          PG        SAS   LAL          Assists        6.5   standard  [4, 9, 11, 6, 10]         [7, 9, 9, 3, 6]       4.5   5     8.0     6.8    1.5     0.13      23.077   5            1.502  NBA_game_oeCCiNtypxK0snbnRGEdXxZ9  
 
 
-For a more detailed view, check the results folder where output_data.csv is saved.
+For a more detailed view, check the example_results folder where output_data.csv is saved.
 
 
 
