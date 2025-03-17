@@ -3,15 +3,8 @@ import pandas as pd
 from apscheduler.schedulers.background import BackgroundScheduler
 from datetime import datetime
 import pytz
-from prop import Prop
-import pickle
 import json
 import time
-
-def save_props_to_file(props, filename='props.pkl'):
-    with open(filename, 'wb') as f:
-        pickle.dump(props, f)
-    print(f"Saved {len(props)} props to {filename}")
 
 
 props_list = []
@@ -70,15 +63,6 @@ def extract_player_stats(data, players):
                 start_time_for_sqlite = start_time_utc.strftime('%Y-%m-%d %H:%M:%S')
             else:
                 start_time_for_sqlite = None
-            prop = Prop(player_name=player_info['display_name'],
-                        position=player_info['position'],
-                        stat_type=stat_type,
-                        line_score=line_score,
-                        odds_type=odds_type,
-                        team_name=player_info['team'],
-                        league_id=player_info['league_id'],
-                        game_id=game_id)
-            props.append(prop)
             if game:
                 prizepicks_stats.append({
                     'Prop ID': prop_id,
@@ -126,10 +110,6 @@ def fetch_and_update_data():
 
     try:
 
-        '''driver.get("https://api.prizepicks.com/projections")
-        time.sleep(30)
-        json_data = driver.find_element(By.TAG_NAME, "pre").text
-        data = json.loads(json_data)'''
 
         with open("data.json", "r", encoding="utf-8") as file:
             data = json.load(file)
@@ -149,7 +129,6 @@ def fetch_and_update_data():
 
         for prop in props:
             print(prop)
-        save_props_to_file(props)
         nba_props = [
             prop for prop in props
             if prop.league_id == "7" and not (
@@ -157,9 +136,6 @@ def fetch_and_update_data():
             )
         ]
 
-        save_props_to_file(nba_props, 'nba_props.pkl')
-
-        print(f"Saved {len(nba_props)} NBA props to nba_props.pkl")
 
 
     except Exception as e:
