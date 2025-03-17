@@ -43,7 +43,7 @@ def extract_player_stats(data, players):
     prizepicks_stats = []
     for item in data["data"]:
         if item["type"] == "projection":
-            prop_id = item["id"]  # Capture the prop_id here
+            prop_id = item["id"]
             player_id = item["relationships"]["new_player"]["data"]["id"]
             leg_id = item["relationships"]["league"]["data"]["id"]
             player_info = players.get(player_id, {
@@ -64,7 +64,6 @@ def extract_player_stats(data, players):
             else:
                 game_id = None
 
-            # Convert start_time to UTC and format it
             if start_time_str:
                 start_time_with_tz = datetime.strptime(start_time_str, '%Y-%m-%dT%H:%M:%S%z')
                 start_time_utc = start_time_with_tz.astimezone(pytz.utc)
@@ -135,7 +134,7 @@ def fetch_and_update_data():
         with open("data.json", "r", encoding="utf-8") as file:
             data = json.load(file)
 
-        print(data)  # Verify the structure'''
+        print(data) 
 
         players = extract_display_names(data)
         prizepicks_stats, props = extract_player_stats(data, players)
@@ -149,7 +148,6 @@ def fetch_and_update_data():
         print(f"Number of props: {len(props)}")
 
         for prop in props:
-            # Assuming calculate_score is a method in Prop
             print(prop)
         save_props_to_file(props)
         nba_props = [
@@ -159,7 +157,6 @@ def fetch_and_update_data():
             )
         ]
 
-        # Save filtered props to pickle file
         save_props_to_file(nba_props, 'nba_props.pkl')
 
         print(f"Saved {len(nba_props)} NBA props to nba_props.pkl")
@@ -168,12 +165,11 @@ def fetch_and_update_data():
     except Exception as e:
         print(f"An error occurred: {e}")
     finally:
-        #driver.quit()
         conn.close()
 
 
 def get_props():
-    fetch_and_update_data()  # Fetch data when needed
+    fetch_and_update_data() 
     return props_list
 
 
