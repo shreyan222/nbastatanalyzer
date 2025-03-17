@@ -90,3 +90,6 @@ data.json holds the copied API data.
 
 Output is stored in output_data.csv for further use.
 
+Currently in progress...
+
+Plans to add additional advanced stats such as Defensive rankings & trades/injuries.
