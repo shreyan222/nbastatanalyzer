@@ -66,8 +66,6 @@ Installation & Usage
 
 Prerequisites
 
-Ensure you have Python installed along with the required dependencies:
-
 pip install pandas requests beautifulsoup4 apscheduler unidecode pytz
 
 Running the Scripts
