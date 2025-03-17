@@ -308,13 +308,10 @@ def combinetoverPropraternum2(num, timeframe):
     data_rows.sort(key=lambda row: (row[ssrownum]), reverse=True)
     data_rows_demon.sort(key=lambda row: (row[ssrownum]), reverse=True)
     data_rows_goblin.sort(key=lambda row: (row[ssrownum]), reverse=True)
-    # Print the final well-aligned table at the end
     print("\nFinal Standard Data Table (Sorted by Sorting Score):\n")
-    # Reprint the header
     header_row = "".join(f"{header:<{col_widths[i]}}" for i, header in enumerate(headers))
     print(header_row)
 
-    # Reprint all the rows
     for row in data_rows:
         formatted_row = "".join(f"{str(item):<{col_widths[i]}}" for i, item in enumerate(row))
         print(formatted_row)
