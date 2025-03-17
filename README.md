@@ -44,7 +44,7 @@ stats_ten_games(name): Fetches a player's last 10 game stats.
 
 specific_stat_vs_opp_games_arr(arr, stat): Extracts a specific stat from historical data.
 
-4. testalgo.py
+4. Main.py
 
 Runs the main analysis, filters props, calculates scores, and organizes output data.
 
@@ -76,7 +76,7 @@ python PPapiscraper.py
 
 Run the main analysis:
 
-python testalgo.py
+python Main.py
 
 Sample Results:
 
