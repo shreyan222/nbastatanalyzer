@@ -4,7 +4,7 @@ def truncate_list_after_two_empty_elements(lst):
 
     for i in range(len(lst) - 1):
         if lst[i] == "" and lst[i + 1] == "":
-            return lst[:i]  # Return the sublist excluding the two empty elements
+            return lst[:i]  
     return lst
 def against_team(team):
     html_text = requests.get(f'https://www.statmuse.com/nba/ask/what-team-are-the-{team}-playing-next').text
@@ -12,25 +12,21 @@ def against_team(team):
     opp = soup.find('span',
                     class_='my-[1em] [&>a]:underline [&>a]:text-team-secondary whitespace-pre-wrap text-pretty').text
 
-    # Determine the start index based on '@ ' or 'vs '
     start_index = opp.find('@ ')
     if start_index != -1:
-        start_index += 2  # Move index to after '@ '
+        start_index += 2 
     else:
         start_index = opp.find('vs ')
         if start_index != -1:
-            start_index += 3  # Move index to after 'vs '
+            start_index += 3  
 
-    # Find the position of the next space after '@ ' or 'vs '
     if start_index != -1:
         end_index = opp.find(' ', start_index)
-        if end_index == -1:  # If no space found, use the rest of the string
+        if end_index == -1:  
             end_index = len(opp)
 
-        # Extract and print the substring
         substring = opp[start_index:end_index].strip()
 
-        # Check and return the opponent's name
         if substring.upper() != "MIN":
             return substring
         else:
