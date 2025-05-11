@@ -120,8 +120,14 @@ class PropChangeTracker:
             }
 
         # Create dictionaries for easy lookup by Prop ID
-        prev_props_dict = {prop['Prop ID']: prop for prop in previous_props}
-        curr_props_dict = {prop['Prop ID']: prop for prop in current_props}
+        prev_props_dict = {prop.get('Prop ID', ''): prop for prop in previous_props if 'Prop ID' in prop}
+        curr_props_dict = {prop.get('Prop ID', ''): prop for prop in current_props if 'Prop ID' in prop}
+
+        # Remove empty keys if any
+        if '' in prev_props_dict:
+            prev_props_dict.pop('')
+        if '' in curr_props_dict:
+            curr_props_dict.pop('')
 
         # Find new props (in current but not in previous)
         new_prop_ids = set(curr_props_dict.keys()) - set(prev_props_dict.keys())
@@ -138,18 +144,23 @@ class PropChangeTracker:
             curr_prop = curr_props_dict[prop_id]
 
             changes = {}
+            # Check each key that we want to track changes for
             for key in ['Line Score', 'Stat Type', 'Odds Type']:
-                if prev_prop[key] != curr_prop[key]:
-                    changes[key] = {
-                        'previous': prev_prop[key],
-                        'current': curr_prop[key]
-                    }
+                # Only compare if both props have the key
+                if key in prev_prop and key in curr_prop:
+                    if prev_prop[key] != curr_prop[key]:
+                        changes[key] = {
+                            'previous': prev_prop[key],
+                            'current': curr_prop[key]
+                        }
 
             if changes:
                 changed_props.append({
                     'Prop ID': prop_id,
-                    'Player': curr_prop['Display Name'],
-                    'Team': curr_prop['Team Name'],
+                    'Player': curr_prop.get('Display Name', 'Unknown Player'),
+                    'Team': curr_prop.get('Team Name', 'Unknown Team'),
+                    'Stat Type': curr_prop.get('Stat Type', 'Unknown Stat'),
+                    'Odds Type': curr_prop.get('Odds Type', 'Unknown Odds'),
                     'Changes': changes
                 })
 
@@ -168,21 +179,28 @@ class PropChangeTracker:
         if changes["removed_props"]:
             print("\n--- REMOVED PROPS ---")
             for prop in changes["removed_props"]:
-                print(f"• {prop['Display Name']} ({prop['Team Name']}) - {prop['Stat Type']} {prop['Line Score']}")
+                print(
+                    f"• {prop['Display Name']} ({prop['Team Name']}) - ({prop['Odds Type']}) {prop['Stat Type']} {prop['Line Score']}")
 
         # Print new props
         if changes["new_props"]:
             print("\n--- NEW PROPS ---")
             for prop in changes["new_props"]:
-                print(f"• {prop['Display Name']} ({prop['Team Name']}) - {prop['Stat Type']} {prop['Line Score']}")
+                print(
+                    f"• {prop['Display Name']} ({prop['Team Name']}) - ({prop['Odds Type']}) {prop['Stat Type']} {prop['Line Score']}")
 
         # Print changed props
         if changes["changed_props"]:
             print("\n--- CHANGED PROPS ---")
             for prop in changes["changed_props"]:
-                print(f"• {prop['Player']} ({prop['Team']}) - {prop['Stat Type']}:")
-                for change_type, values in prop['Changes'].items():
-                    print(f"  - {change_type}: {values['previous']} → {values['current']}")
+                # Using get() method to safely access values that might be missing
+                player = prop.get('Player', 'Unknown Player')
+                team = prop.get('Team', 'Unknown Team')
+                print(f"• {player} ({team}):")
+                for change_type, values in prop.get('Changes', {}).items():
+                    previous = values.get('previous', 'N/A')
+                    current = values.get('current', 'N/A')
+                    print(f"  - {change_type}: {previous} → {current}")
 
         # If no changes were detected
         if not (changes["removed_props"] or changes["new_props"] or changes["changed_props"]):
