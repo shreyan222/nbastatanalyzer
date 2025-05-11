@@ -180,7 +180,7 @@ class PropChangeTracker:
         if changes["changed_props"]:
             print("\n--- CHANGED PROPS ---")
             for prop in changes["changed_props"]:
-                print(f"• {prop['Player']} ({prop['Team']}):")
+                print(f"• {prop['Player']} ({prop['Team']}) - {prop['Stat Type']}:")
                 for change_type, values in prop['Changes'].items():
                     print(f"  - {change_type}: {values['previous']} → {values['current']}")
 
